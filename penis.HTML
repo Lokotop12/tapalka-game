@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тапалка - Кликай и зарабатывай!</title>
+<a href="WLRBB.html">Ссылка</a>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #coin {
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+            border-radius: 50%;
+            margin: 20px auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            user-select: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s;
+        }
+        #coin:active {
+            transform: scale(0.95);
+        }
+        #score {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .upgrades {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .upgrade {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .upgrade:hover {
+            background-color: #d0d0d0;
+        }
+        .upgrade:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #link {
+            margin-top: 20px;
+            color: #555;
+            font-size: 14px;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Тапалка</h1>
+        <p>Кликай на монетку, чтобы зарабатывать!</p>
+        
+        <div id="coin">💰</div>
+        
+        <div id="score">Монет: 0</div>
+        
+        <div class="upgrades">
+            <button class="upgrade" onclick="buyUpgrade('clicker', 10, 1)">
+                Улучшение клика (+1) - 10 монет
+            </button>
+            <button class="upgrade" onclick="buyUpgrade('autoClicker', 50, 1)">
+                Автоклик (+1/сек) - 50 монет
+            </button>
+            <button class="upgrade" onclick="buyUpgrade('megaClicker', 200, 5)">
+                Мега-клик (+5) - 200 монет
+            </button>
+        </div>
+        
+        <div id="link">
+            Больше игр на <a href="https://tapalka.ruka.com/" target="_blank">tapalka.ruka.com</a>!
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let clickPower = 1;
+        let autoClickerPower = 0;
+        
+        // Обновляем счетчик
+        function updateScore() {
+            document.getElementById("score").textContent = `Монет: ${score}`;
+        }
+        
+        // Клик по монетке
+        document.getElementById("coin").addEventListener("click", function() {
+            score += clickPower;
+            updateScore();
+        });
+        
+        // Автокликер
+        setInterval(function() {
+            score += autoClickerPower;
+            updateScore();
+        }, 1000);
+        
+        // Покупка улучшений
+        function buyUpgrade(type, cost, power) {
+            if (score >= cost) {
+                score -= cost;
+                if (type === "clicker") clickPower += power;
+                else if (type === "autoClicker") autoClickerPower += power;
+                else if (type === "megaClicker") clickPower += power;
+                updateScore();
+            } else {
+                alert("Недостаточно монет!");
+            }
+        }
+    </script>
+</body>
+<a> URL https://tapalka.ruka.com// </a>
+</html>
